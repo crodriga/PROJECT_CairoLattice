@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Installation &#8212; icenumerics v0.1.9 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage instructions" href="IceNumericsUsage.html" />
+    <link rel="prev" title="Welcome to icenumerics’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installing-a-released-version-using-pip">
+<h2>Installing a released version using pip.<a class="headerlink" href="#installing-a-released-version-using-pip" title="Permalink to this headline">¶</a></h2>
+<p>The easiest way to install the package is to write in the command line:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">icenumerics</span>
+</pre></div>
+</div>
+<p>If this works, then you should run a sample simulation, as described in the  <a class="reference internal" href="IceNumericsUsage.html"><span class="doc">Usage instructions</span></a>. If the command line shows an output like the following, your installation was successful.</p>
+<img alt="_images/lammps_output.png" src="_images/lammps_output.png" />
+<p>If you get an error, it means that your system can’t run the lammps binaries included in the simulation.</p>
+<div class="admonition-todo admonition" id="id1">
+<p class="admonition-title">Todo</p>
+<p>write specific instructions for lammps compilation and how to include the binaries on the package.</p>
+</div>
+</div>
+<div class="section" id="installing-in-a-conda-virtual-environment">
+<h2>Installing in a conda virtual environment.<a class="headerlink" href="#installing-in-a-conda-virtual-environment" title="Permalink to this headline">¶</a></h2>
+<p>Conda’s virtual environments allow us to install the package in an isolated version of the python installation, in order to prevent conflicts. Since there is no conda installer for icenumerics, to install it in a virtual environment, first create it, install pip within it, and then install icenumerics. The pip installer knows to install packages to the environment itself was installed in.</p>
+</div>
+<div class="section" id="installing-the-latest-version-from-github">
+<h2>Installing the latest version from github.<a class="headerlink" href="#installing-the-latest-version-from-github" title="Permalink to this headline">¶</a></h2>
+<p>To clone the latest version from github write:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="o">--</span><span class="n">recurse</span><span class="o">-</span><span class="n">submodules</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">aortiza</span><span class="o">/</span><span class="n">icenumerics</span><span class="o">.</span><span class="n">git</span>
+</pre></div>
+</div>
+<p>This will download both the icenumerics package and the magcolloids subpackage.
+Now you can either manualy place the package somewhere that python can find it, or you can use the setup.py scripts. To use the scripts you first need to install the magcolloids package. Go to the magcolloids directory (‘icenumericsicenumericsmagcolloids') and run</p>
+<blockquote>
+<div><p>python setup.py install</p>
+</div></blockquote>
+<p>This will install the magcolloids package. Then go out to the icenumerics directory and run the same command. Test the installation as described above.</p>
+</div>
+<div class="section" id="install-from-github-using-pip">
+<h2>Install from github using pip<a class="headerlink" href="#install-from-github-using-pip" title="Permalink to this headline">¶</a></h2>
+<p>pip install git+git://github.com/aortiza/icenumerics&#64;master</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">icenumerics</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installing-a-released-version-using-pip">Installing a released version using pip.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-in-a-conda-virtual-environment">Installing in a conda virtual environment.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installing-the-latest-version-from-github">Installing the latest version from github.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-from-github-using-pip">Install from github using pip</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="IceNumericsUsage.html">Usage instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Units.html">About units.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Pandas.html">The multiindex pandas array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OtherNotebooks/ReadingColloidsFromSimulation.html">Read colloidal ice from simulation or experimental data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OtherNotebooks/VerticesClassification.html">Vertex Classification</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OtherNotebooks/ForcesOfTheSimulation.html">Forces in the simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OtherNotebooks/CalculateEnergy.html">Calculate Energy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OtherNotebooks/CalculateEnergy.html#Calculate-the-energy-of-a-configuration.">Calculate the energy of a configuration.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="OtherNotebooks/SimulationsWithVariableField.html">Running simulations with a field that is a function of time</a></li>
+<li class="toctree-l1"><a class="reference internal" href="API.html">The <cite>icenumerics</cite> API</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to icenumerics’s documentation!</a></li>
+      <li>Next: <a href="IceNumericsUsage.html" title="next chapter">Usage instructions</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Antonio Ortiz-Ambriz.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/installation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
