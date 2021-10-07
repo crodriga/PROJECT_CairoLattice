@@ -1,3 +1,3 @@
 LAMMPS (18 Jun 2019)
 ### ---preamble--- ###
-log /home/carolina/CairoLattice_ACI_PROJECT/Scripts/Output_Script-1.1/ACI_CairoLattice_15mT-800s_l10_exp2.log
+log /home/carolina/CairoLattice_ACI_PROJECT/Scripts/Output_Script-1.0/ACI_CairoLattice_l5_15mT-800s.log

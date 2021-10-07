@@ -284,8 +284,8 @@ def get_ice_trj(trj,bounds):
     traps[["dx","dy","dz"]] = traps[["dx","dy","dz"]].values*flip[:,np.newaxis]
 
     ## make the direction vector unitary
-    mag = np.sign((traps[["dx","dy","dz"]].values**2).sum(axis=1))
-    traps[["dx","dy","dz"]] = traps[["dx","dy","dz"]].values*mag[:,np.newaxis]
+    mag = np.sqrt((traps[["dx","dy","dz"]].values**2).sum(axis=1))
+    traps[["dx","dy","dz"]] = traps[["dx","dy","dz"]].values/mag[:,np.newaxis]
 
     #timestep = 10e-3 #sec
     #traps["t"] = traps.index.get_level_values("frame")*timestep
