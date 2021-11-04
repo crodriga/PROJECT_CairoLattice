@@ -86,13 +86,7 @@ def unit_cell_Cairo_InitCond(a):
              [+l*(417/890)*np.cos(60*torad)+a/2,l*(417/890)*np.cos(30*torad),0],
              [+l*(417/890)*np.cos(60*torad)+a/2,-l*(417/890)*np.cos(30*torad),0],
              [a/2+l*np.cos(60*torad)+l*(473/890)*np.cos(30*torad),a/2+l*(417/890)*np.sin(30*torad),0],
-#             [a/2+l*np.cos(60*torad)+l/2*np.cos(30*torad),-a/2-l/2*np.sin(30*torad),0],
-#             [a/2+l*np.sin(30*torad)+l*np.cos(30*torad),0,0],
-#             [a/2+l*np.cos(60*torad)+l/2*np.cos(30*torad)+2*l/2*np.cos(30*torad),a/2+l/2*np.sin(30*torad),0],
-#             [a/2+2*l*np.cos(60*torad)+a+l/2*np.sin(30*torad),(l+l/2)*np.sin(60*torad),0],
-#             [a/2+2*l*np.cos(60*torad)+a/2,2*l*np.sin(60*torad),0],
              [a/2+(l+l*(473/890))*np.cos(60*torad),(l+l*(473/890))*np.sin(60*torad),0],
-#             [a/2+(l+l/2)*np.cos(60*torad),(l+l/2)*np.sin(60*torad)+l*np.sin(60*torad),0],
              [l*(417/890)*np.cos(30*torad),l*np.cos(30*torad)+l*np.sin(30*torad)+a+l*(417/890)*np.sin(30*torad),0],
              [0,l*np.cos(30*torad)+l*np.sin(30*torad)+a/2,0]])*ureg.um
     
@@ -102,13 +96,57 @@ def unit_cell_Cairo_InitCond(a):
                             [-np.sin(30*torad),-np.cos(30*torad),0],
                             [-np.cos(60*torad),np.sin(60*torad),0],
                             [-np.sin(60*torad),np.cos(60*torad),0],
-#                            [np.cos(30*torad),np.sin(30*torad),0],
-#                            [0,1,0],
-#                            [np.sin(60*torad),np.cos(60*torad),0],
-#                            [-np.sin(30*torad),np.cos(30*torad),0],
-#                            [1,0,0],
                             [np.sin(30*torad),np.cos(30*torad),0],
-#                            [-np.cos(60*torad),np.sin(60*torad),0],
+                            [-np.cos(30*torad),-np.sin(30*torad),0],
+                            [0,1,0]]*ureg.um
+    
+    # < Only with this part of the lattice is difficult to map the entire space. We add a translation of those points in order 
+    # to be able to only translate the lattice in x and y to cover the whole space. >
+    
+    new = np.zeros_like(centers)
+    
+    centers_toAddX = centers[:,0]+(a+2*l*np.cos(60*np.pi/180))*ureg.um
+    centers_toAddY = centers[:,1]+(2*l*-np.sin(60*np.pi/180))*ureg.um
+    
+    new[:,0] = centers_toAddX
+    new[:,1] = centers_toAddY
+
+    new = new*ureg.um
+
+    centers_new = np.concatenate((centers,new))
+    directions_new = np.concatenate((directions,directions))
+    
+    return centers_new, directions_new
+
+
+def unit_cell_Cairo_GS(a):
+    
+    """This function generates a unit cell of a Cairo lattice. The input parameter is the size of the shorter side.
+    The output of the function is the (x,y) collection of the unit cells (centers) and the directions of the spins."""
+    
+    
+    a = a
+    l = 1.37*a
+    torad = np.pi/180
+    
+    centers = np.array([[0,0,0], 
+             [-l*(417/890)*np.cos(60*torad)-a/2,l*(417/890)*np.cos(30*torad),0], 
+             [-l*(417/890)*np.cos(30*torad),l*np.cos(30*torad)+l*(473/890)*np.cos(60*torad),0], 
+             [+l*(417/890)*np.cos(30*torad),l*np.cos(30*torad)+l*(473/890)*np.cos(60*torad),0], 
+             [+l*(417/890)*np.cos(60*torad)+a/2,l*(417/890)*np.cos(30*torad),0],
+             [+l*(417/890)*np.cos(60*torad)+a/2,-l*(417/890)*np.cos(30*torad),0],
+             [a/2+l*np.cos(60*torad)+l*(473/890)*np.cos(30*torad),a/2+l*(417/890)*np.sin(30*torad),0],
+             [a/2+(l+l*(473/890))*np.cos(60*torad),(l+l*(473/890))*np.sin(60*torad),0],
+             [l*(417/890)*np.cos(30*torad),l*np.cos(30*torad)+l*np.sin(30*torad)+a+l*(417/890)*np.sin(30*torad),0],
+             [0,l*np.cos(30*torad)+l*np.sin(30*torad)+a/2,0]])*ureg.um
+    
+    directions =[[-1,0,0],[-np.sin(30*torad),np.cos(30*torad),0],
+                            [np.sin(60*torad),np.cos(60*torad),0],
+                            [np.sin(60*torad),-np.cos(60*torad),0],
+                            [-np.sin(30*torad),-np.cos(30*torad),0],
+                            [np.cos(60*torad),-np.sin(60*torad),0],
+                            [-np.sin(60*torad),np.cos(60*torad),0],
+                            [np.sin(30*torad),np.cos(30*torad),0],
                             [-np.cos(30*torad),-np.sin(30*torad),0],
                             [0,1,0]]*ureg.um
     
@@ -145,6 +183,10 @@ def cairo_spin_ice_geometry(Sx,Sy,lattice,border):
         
         centers, directions = unit_cell_Cairo_InitCond(lattice)
     
+    elif border == "GS?":
+        
+        centers, directions = unit_cell_Cairo_GS(lattice)
+        
     else: 
         raise(ValueError(border+" is not a supported border type."))
         
