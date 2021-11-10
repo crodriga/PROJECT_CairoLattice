@@ -168,6 +168,70 @@ def unit_cell_Cairo_GS(a):
     
     return centers_new, directions_new
 
+    
+def unit_cell_Cairo_periodic(a):
+    
+        
+    """This function generates a unit cell of a Cairo lattice. The input parameter is the size of the shorter side.
+    The output of the function is the (x,y) collection of the unit cells (centers) and the directions of the spins. This function will define the Cairo lattice as a squere lattice in order to set periodic boundaries."""
+
+    ureg = ice.ureg
+    l = 1.37*a
+    torad = np.pi/180
+
+    centers = [[0,0,0], # First plaquette 
+                [(417/890)*l*np.cos(30*torad),a/2+(417/890)*l*np.sin(30*torad),0],
+                [-(417/890)*l*np.cos(30*torad),a/2+(417/890)*l*np.sin(30*torad),0],
+                [(417/890)*l*np.cos(30*torad),-a/2-(417/890)*l*np.sin(30*torad),0],
+                [-(417/890)*l*np.cos(30*torad),-a/2-(417/890)*l*np.sin(30*torad),0],
+                
+                [a/2+(l*(np.cos(30*torad)+np.cos(60*torad))),0,0],# Second plaquette
+                [l*np.cos(30*torad)+(473/890)*l*np.cos(60*torad),(417/890)*l*np.sin(60*torad),0],
+                [l*np.cos(30*torad)+(473/890)*l*np.cos(60*torad),-(417/890)*l*np.sin(60*torad),0],
+                [a+(l*(np.cos(30*torad)+np.cos(60*torad)))+(417/890)*l*np.cos(60*torad),(417/890)*l*np.sin(60*torad),0],
+                [a+(l*(np.cos(30*torad)+np.cos(60*torad)))+(417/890)*l*np.cos(60*torad),-(417/890)*l*np.sin(60*torad),0],
+                
+                [0,-a/2-l*(np.cos(30*torad)+np.cos(60*torad)),0],# Third plaquette
+                [a/2+(417/890)*l*np.sin(30*torad),-a/2-l*np.cos(60*torad)-(473/890)*l*np.cos(30*torad),0],
+                [-a/2-(417/890)*l*np.cos(60*torad),-a/2-l*np.cos(60*torad)-(473/890)*l*np.cos(30*torad),0],
+                [-a/2-(417/890)*l*np.sin(30*torad),-a/2-l*np.cos(60*torad)-l*np.cos(30*torad)-(417/890)*l*np.cos(30*torad),0],
+                [a/2+(417/890)*l*np.cos(60*torad),-a/2-l*np.cos(60*torad)-l*np.cos(30*torad)-(417/890)*l*np.cos(30*torad),0],
+                
+                [a/2+(l*(np.cos(30*torad)+np.cos(60*torad))),-a/2-l*(np.cos(30*torad)+np.cos(60*torad)),0],# Fourth plaquette
+                [a/2+l*np.cos(60*torad)+(473/890)*l*np.cos(30*torad),-l*np.cos(30*torad)-(473/890)*l*np.cos(60*torad),0],
+                
+               [a/2+l*np.cos(60*torad)+l*np.cos(30*torad)+(417/890)*l*np.sin(60*torad),-l*np.cos(30*torad)-(473/890)*l*np.cos(60*torad),0],
+                [a/2+l*np.cos(60*torad)+(473/890)*l*np.cos(30*torad),-l*np.cos(30*torad)-l*np.cos(60*torad)-a-(417/890)*l*np.sin(30*torad),0],
+                [a/2+l*np.cos(60*torad)+l*np.cos(30*torad)+l*(417/890)*np.cos(30*torad),-l*np.cos(30*torad)-l*np.cos(60*torad)-a-(417/890)*l*np.cos(60*torad),0]
+              ]*ureg.um
+    directions = [[0,a,0],# First plaquette
+                  [a*np.cos(30*torad),a*np.sin(30*torad),a*0],
+                  [-a*np.cos(30*torad),a*np.sin(30*torad),a*0],
+                  [a*np.cos(30*torad),-a*np.sin(30*torad),a*0],
+                  [-a*np.cos(30*torad),-a*np.sin(30*torad),a*0],
+                  
+                  [a,0,0],# Second plaquette 
+                  [-a*np.cos(60*torad),a*np.sin(60*torad),0],
+                  [a*np.cos(60*torad),a*np.sin(60*torad),0],
+                  [a*np.cos(60*torad),a*np.sin(60*torad),0],
+                  [-a*np.cos(60*torad),a*np.sin(60*torad),0],
+                  
+                  [a,0,0], #Third plaquette
+                  [a*np.cos(60*torad),a*np.sin(60*torad),0],
+                  [-a*np.cos(60*torad),a*np.sin(60*torad),0],
+                  [a*np.cos(60*torad),a*np.sin(60*torad),0],
+                  [-a*np.cos(60*torad),a*np.sin(60*torad),0],
+                  
+                  [0,a,0], # Fourth plaquette
+                  [-a*np.cos(30*torad),a*np.sin(30*torad),a*0],
+                  [a*np.cos(30*torad),a*np.sin(30*torad),a*0],
+                  [a*np.cos(30*torad),a*np.sin(30*torad),a*0],
+                  [a*np.cos(30*torad),-a*np.sin(30*torad),a*0]
+                 ]*ureg.um
+    
+    
+    return centers, directions
+
 def cairo_spin_ice_geometry(Sx,Sy,lattice,border):
     
     """In this function we can build the spin ice cairo lattice choosing the lattice (lenght of the shorter trap), the number of repetitions along the x axis and y axis and the type of border. Until now is only available the "closed spin" one."""
@@ -187,14 +251,21 @@ def cairo_spin_ice_geometry(Sx,Sy,lattice,border):
         
         centers, directions = unit_cell_Cairo_GS(lattice)
         
+    elif border == "periodic":
+        
+        centers, directions = unit_cell_Cairo_periodic(lattice)
+        
     else: 
-        raise(ValueError(border+" is not a supported border type."))
+        raise(ValueError(border+" is not a supported border type. Supported borsers are: closed spin, fixed conf, GS? and periodic"))
         
     # < From here we will computer the centers of the lattice >
         
     # < tx and ty are the translations in the x and y direccion respectively that are needed to extend the lattice >
     
-    tx = 2*(lattice)+4*(1.37*lattice)*np.cos(60*np.pi/180)
+    #tx = 2*(lattice)+4*(1.37*lattice)*np.cos(60*np.pi/180)
+    #ty = -lattice-2*(1.37*lattice)*(np.cos(30*np.pi/180)+np.cos(60*np.pi/180))
+    
+    tx = (lattice)+2*(1.37*lattice)*(np.cos(60*np.pi/180)+np.cos(30*np.pi/180))
     ty = -lattice-2*(1.37*lattice)*(np.cos(30*np.pi/180)+np.cos(60*np.pi/180))
     
     centersX = []
