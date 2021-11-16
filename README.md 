@@ -1,0 +1,3 @@
+# Artificial colloidal ice: Cairo lattice
+
+In this repository, the reader will find all the scripts used in the Cairo lattice artificial colloidal ice project. The body of the program is located in the folder icenumerics (see profile @aortiza for more details). After that there are two more folders called: Scripts and Analysis. In Scripts, I situate all the simulation scripts accompanied by the support.py file that has all the new functions used in this project. In the Analysis folder,you will find all the analysis scripts and plots. The analysis are labeled by the data that will analyze.  
