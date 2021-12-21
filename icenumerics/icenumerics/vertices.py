@@ -115,8 +115,9 @@ def calculate_neighbor_pairs(Centers):
 def from_neighbors_get_nearest_neighbors(NeighborPairs):
     # This function takes a list of Delaunay Neighbor Pairs and returns only those which are close to the minimum distance.
     NeighborPairs['Distance']=np.around(NeighborPairs['Distance'],decimals=4)
+    print(NeighborPairs['Distance'])
     NeighborPairs = NeighborPairs[NeighborPairs['Distance']<=np.min(NeighborPairs['Distance'])*1.1]
-    
+
     return NeighborPairs
 
 def get_vertices_positions(NeighborPairs,spins):
