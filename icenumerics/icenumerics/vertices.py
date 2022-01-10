@@ -115,7 +115,7 @@ def calculate_neighbor_pairs(Centers):
 def from_neighbors_get_nearest_neighbors(NeighborPairs):
     # This function takes a list of Delaunay Neighbor Pairs and returns only those which are close to the minimum distance.
     NeighborPairs['Distance']=np.around(NeighborPairs['Distance'],decimals=4)
-    print(NeighborPairs['Distance'])
+    #print(NeighborPairs['Distance'])
     NeighborPairs = NeighborPairs[NeighborPairs['Distance']<=np.min(NeighborPairs['Distance'])*1.1]
 
     return NeighborPairs
@@ -124,6 +124,8 @@ def get_vertices_positions(NeighborPairs,spins):
     # From a list of Spins, get neighboring spins, and get the crossing point of each, which defines a vertex.  
     for i,n in enumerate(NeighborPairs):
         NeighborPairs[i]['Vertex'] = spin_crossing_point(spins[n['Pair'][0]],spins[n['Pair'][1]])[0:2]
+        
+        #print(NeighborPairs[i])
     
     return NeighborPairs
 
@@ -237,7 +239,7 @@ class vertices():
             self.edges.start = edges[:,0]
             self.edges.end = edges[:,1]
                         
-    def infer_topology(self, ice, positions=None, method = "crossings", tolerance = 0.01):
+    def infer_topology(self, ice, positions=None, method = "voronoi", tolerance = 0.01):
         """ Infer the topology from the spin structure.
         ------------
         Parameters:

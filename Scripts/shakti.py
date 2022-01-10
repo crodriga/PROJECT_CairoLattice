@@ -21,7 +21,7 @@ def unit_cell_shakti(a):
 
     plaquette_cte = 2*l*np.sin(60*torad)
     
-    centers = [[0,0,0], # <First plaquette>
+    centers = np.array([[0,0,0], # <First plaquette>
            [-(plaquette_cte-2*trap_sep*2)/4-trap_sep, plaquette_cte/2,0],
            [+(plaquette_cte-2*trap_sep*2)/4+trap_sep, plaquette_cte/2,0],
            [-(plaquette_cte-2*trap_sep*2)/4-trap_sep, -plaquette_cte/2,0],
@@ -40,10 +40,10 @@ def unit_cell_shakti(a):
            [3/4*plaquette_cte, -plaquette_cte/2,0],
            [5/4*plaquette_cte, -plaquette_cte/2,0],
            [3/4*plaquette_cte, -3/2*plaquette_cte,0],
-           [5/4*plaquette_cte, -3/2*plaquette_cte,0],
-          ]*ureg.um
+           [5/4*plaquette_cte, -3/2*plaquette_cte,0]
+          ])*ureg.um
 
-    directions = [[0,3*a,0], # <First plaquette>
+    directions = np.array([[0,3*a,0], # <First plaquette>
                   [1*a,0,0],
                   [1*a,0,0],
                   [1*a,0,0],
@@ -63,7 +63,7 @@ def unit_cell_shakti(a):
                   [1*a,0,0],
                   [1*a,0,0],
                   [1*a,0,0],
-                 ]*ureg.um
+                 ])*ureg.um
     
     return centers, directions
 
@@ -76,7 +76,7 @@ def unit_cell_shakti_def(trap_sep, interparticle_dist):
     part_d = 13*np.sqrt(2)
     plaquette_cte = part_d*2+2*trap_sep
 
-    centers = [
+    centers = np.array([
                [0,0,0], # <First plaquette>
                [-plaquette_cte/4, plaquette_cte/2,0],
                [plaquette_cte/4, plaquette_cte/2,0],
@@ -100,10 +100,10 @@ def unit_cell_shakti_def(trap_sep, interparticle_dist):
                [5/4*plaquette_cte, -plaquette_cte/2,0],
                [3/4*plaquette_cte, -3/2*plaquette_cte,0],
                [5/4*plaquette_cte, -3/2*plaquette_cte,0],
-              ]*ureg.um
+              ])*ureg.um
 
 
-    directions = [
+    directions = np.array([
                   [0,trap_sep,0], # <First plaquette>
                   [1,0,0],
                   [1,0,0],
@@ -124,7 +124,7 @@ def unit_cell_shakti_def(trap_sep, interparticle_dist):
                   [1,0,0],
                   [1,0,0],
                   [1,0,0],
-                 ]*ureg.um
+                 ])*ureg.um
     
     return centers, directions
 
