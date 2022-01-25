@@ -11,6 +11,7 @@ import pandas as pd
 
 import tqdm.auto as tqdm
 
+
 def count_vertices(vrt, column = "type", time = "frame"):
     vrt_count = vrt.groupby([time,column]).count().iloc[:,0].to_frame("number")
 
@@ -36,9 +37,10 @@ def spin_crossing_point(S1,S2):
             S2['Center'][1]-S1['Center'][1]])
 
         lam = np.linalg.solve(A,b)
-
+        #print(S1['Center']+lam[0]*S1['Direction'])
         return S1['Center']+lam[0]*S1['Direction']
     else:
+        #print(np.Inf+np.zeros(np.shape(S1['Center'])))
         return np.Inf+np.zeros(np.shape(S1['Center']))
 
 def unique_points(points,tol = 0.1):
@@ -125,7 +127,6 @@ def get_vertices_positions(NeighborPairs,spins):
     for i,n in enumerate(NeighborPairs):
         NeighborPairs[i]['Vertex'] = spin_crossing_point(spins[n['Pair'][0]],spins[n['Pair'][1]])[0:2]
         
-        #print(NeighborPairs[i])
     
     return NeighborPairs
 
@@ -238,6 +239,10 @@ class vertices():
         if edges is not None:
             self.edges.start = edges[:,0]
             self.edges.end = edges[:,1]
+            
+            self.edge_directory = {
+                i:self.edges.query("start==@i | end==@i").index.values
+                for i,v in self.vertices.iterrows()}
                         
     def infer_topology(self, ice, positions=None, method = "voronoi", tolerance = 0.01):
         """ Infer the topology from the spin structure.
