@@ -43,7 +43,7 @@ def spin_crossing_point(S1,S2):
         #print(np.Inf+np.zeros(np.shape(S1['Center'])))
         return np.Inf+np.zeros(np.shape(S1['Center']))
 
-def unique_points(points,tol = 0.1):
+def unique_points(points,tol = 0.2):
     """Returns only the distinct points (with a tolerance)."""
     flatten = lambda lst: [el for l in lst for el in l]
 
@@ -261,6 +261,10 @@ class vertices():
         neighbor_pairs = get_vertices_positions(neighbor_pairs,spins)
         
         positions, inverse, copies = unique_points(neighbor_pairs['Vertex'])
+        
+#         for i in range(0,len(positions)):
+#             print("["+str(positions[i,0])+","+str(positions[i,1])+"],")
+
         self.vertices.x = positions[:,0]
         self.vertices.y = positions[:,1]
         
